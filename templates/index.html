@@ -48,15 +48,17 @@
             </div>
             
                 <div class="col-md-6">
+                {% if image_path %}
+                    <img src="{{ image_path }}" alt="Gambar Prediksi" width="200">
+                {% endif %}
+                    
                 {% if prediction %}
                     <p style="font-size: 20px;">Tingkat Probabilitas Rusak: {{ '%.3f'|format(persentase_rusak) }}%</p>
                     <p style="font-size: 20px;">Tingkat Probabilitas Tidak Rusak: {{ '%.3f'|format(persentase_tidak_rusak) }}%</p>
                     <p style="font-size: 20px;">Hasil Deteksi : <strong>{{ prediction }}</strong></p>
                 {% endif %}
 
-                {% if image_path %}
-                <img src="{{ image_path }}" alt="Gambar Prediksi" width="200">
-                {% endif %}
+
                 </div>
         </div>
     </div>
