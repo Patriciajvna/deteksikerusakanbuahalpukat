@@ -33,7 +33,7 @@ def index():
     image_path = None
 # Hapus foto sebelumnya jika ada
 if os.path.exists('static/temp.jpg'):
-os.remove('static/temp.jpg')
+    os.remove('static/temp.jpg')
 
     if request.method == 'POST':
         uploaded_file = request.files['file']
