@@ -83,6 +83,16 @@ def index():
 #     image_path = request.args.get('path')
 #     # Lakukan validasi terhadap image_path jika diperlukan
 #     return send_file(image_path, mimetype='image/jpeg')
-    
+
+@app.after_request
+def add_header(response):
+    """
+    Add headers to both force latest IE rendering engine or Chrome Frame,
+    and also to cache the rendered page for 10 minutes.
+    """
+    response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
+    response.headers['Cache-Control'] = 'public, max-age=0'
+    return response
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0",port=5000,debug=True)
