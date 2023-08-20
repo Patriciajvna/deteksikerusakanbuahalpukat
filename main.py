@@ -25,7 +25,6 @@ def predict_image(image_path, model):
     prediction = model.predict(img)
     return prediction
 
-image_path = None
 @app.route('/', methods=['GET', 'POST'])
 def index():
     persentase_rusak=None
@@ -45,7 +44,10 @@ def index():
                 prediction = "Rusak"
             else:
                 prediction = "Tidak Rusak"
-            
+            # Hapus file sementara setelah selesai prediksi
+            os.remove(image_path)
+            image_path = None  # Set image_path ke None setelah dihapus
+    
     return render_template('index.html', prediction=prediction, persentase_rusak=persentase_rusak, persentase_tidak_rusak=persentase_tidak_rusak, image_path=image_path)
 
 @app.route('/get_image')
