@@ -34,7 +34,7 @@ def index():
     if request.method == 'POST':
         uploaded_file = request.files['file']
         if uploaded_file.filename != '':
-            image_path = 'static/temp.jpg # Simpan file sementara
+            image_path = 'static/temp.jpg' # Simpan file sementara
             uploaded_file.save(image_path)
             prediction_result = predict_image(image_path, model)
             rusak_prob = prediction_result[0][0]
