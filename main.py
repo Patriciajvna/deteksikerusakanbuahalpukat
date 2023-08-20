@@ -59,23 +59,7 @@ def index():
             # # Hapus file sementara setelah selesai prediksi
             # os.remove(image_path)
             # image_path = None  # Set image_path ke None setelah dihapus
-    
-    # Render template setelah prediksi selesai dan hapus gambar
-    if image_path:
-        render_template_args = {
-            'prediction': prediction,
-            'persentase_rusak': persentase_rusak,
-            'persentase_tidak_rusak': persentase_tidak_rusak,
-            'image_path': image_path
-        }
-        
-        @app.after_request
-        def remove_temp(response):
-            os.remove(image_path)
-            return response
-        
-        return render_template('index.html', **render_template_args)
-        
+          
     return render_template('index.html', prediction=prediction, persentase_rusak=persentase_rusak, persentase_tidak_rusak=persentase_tidak_rusak, image_path=image_path)
 
 # @app.route('/get_image')
