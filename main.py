@@ -11,7 +11,7 @@ model_path = 'static/trained_model2.h5'
 model = load_model(model_path, compile=False)
 
 # Folder to temporarily store uploaded images
-UPLOAD_FOLDER = 'static/'
+UPLOAD_FOLDER = 'static'
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
@@ -47,7 +47,8 @@ def index():
             # Hapus file sementara setelah selesai prediksi
             os.remove(image_path)
             image_path = None  # Set image_path ke None setelah dihapus
-    
+        return render_template('index.html', prediction=prediction, persentase_rusak=persentase_rusak, persentase_tidak_rusak=persentase_tidak_rusak, image_path=image_path)
+
     return render_template('index.html', prediction=prediction, persentase_rusak=persentase_rusak, persentase_tidak_rusak=persentase_tidak_rusak, image_path=image_path)
 
 @app.route('/get_image')
