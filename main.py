@@ -10,10 +10,10 @@ app = Flask(__name__)
 model_path = 'static/trained_model2.h5'
 model = load_model(model_path, compile=False)
 
-# Folder to temporarily store uploaded images
-UPLOAD_FOLDER = 'static'
-if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
+# # Folder to temporarily store uploaded images
+# UPLOAD_FOLDER = 'static'
+# if not os.path.exists(UPLOAD_FOLDER):
+#     os.makedirs(UPLOAD_FOLDER)
 
 # Fungsi untuk memprediksi gambar baru
 def predict_image(image_path, model):
