@@ -30,7 +30,7 @@ def index():
     persentase_rusak=None
     persentase_tidak_rusak=None
     prediction = None
-    global image_path
+    image_path = None
     if request.method == 'POST':
         uploaded_file = request.files['file']
         if uploaded_file.filename != '':
