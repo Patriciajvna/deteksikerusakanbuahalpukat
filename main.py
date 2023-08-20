@@ -54,7 +54,7 @@ def get_image(path):
     try:
         return send_from_directory(UPLOAD_FOLDER, path, mimetype='image/jpeg')
     finally:
-        if filename == 'temp.jpg':
+        if path == 'temp.jpg':
             os.remove(image_path)  # Hapus hanya jika filename adalah 'temp.jpg'
 
 if __name__ == '__main__':
