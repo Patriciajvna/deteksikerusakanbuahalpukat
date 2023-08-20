@@ -44,6 +44,12 @@ def index():
                 prediction = "Rusak"
             else:
                 prediction = "Tidak Rusak"
+
+            # Setelah selesai prediksi, hapus gambar
+            @after_this_request
+            def remove_temp(response):
+                os.remove(image_path)
+                return response
     
             # # Hapus gambar sementara setelah proses prediksi selesai
             # if os.path.exists(image_path):
@@ -66,12 +72,6 @@ def index():
 #     image_path = request.args.get('path')
 #     # Lakukan validasi terhadap image_path jika diperlukan
 #     return send_file(image_path, mimetype='image/jpeg')
-
-@app.after_request
-def remove_temp_file(response):
-    if image_path and image_path == 'static/temp.jpg':
-        os.remove(image_path)
-    return response
     
 if __name__ == '__main__':
     app.run(host="0.0.0.0",port=5000,debug=True)
