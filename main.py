@@ -43,6 +43,9 @@ def index():
                 prediction = "Rusak"
             else:
                 prediction = "Tidak Rusak"
+
+            # Menghapus file sementara setelah prediksi
+            os.remove(image_path)
             
             return render_template('index.html', prediction=prediction, persentase_rusak=persentase_rusak, persentase_tidak_rusak=persentase_tidak_rusak, image_path=image_path)
     return render_template('index.html', prediction=prediction, persentase_rusak=persentase_rusak, persentase_tidak_rusak=persentase_tidak_rusak)
