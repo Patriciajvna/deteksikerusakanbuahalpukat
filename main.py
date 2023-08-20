@@ -45,10 +45,10 @@ def index():
             else:
                 prediction = "Tidak Rusak"
     
-            # Hapus gambar sementara setelah proses prediksi selesai
-            if os.path.exists(image_path):
-                os.remove(image_path)
-                image_path = None
+            # # Hapus gambar sementara setelah proses prediksi selesai
+            # if os.path.exists(image_path):
+            #     os.remove(image_path)
+            #     image_path = None
 
             # # Hapus file sementara setelah selesai prediksi
             # os.remove(image_path)
@@ -56,10 +56,10 @@ def index():
         
     return render_template('index.html', prediction=prediction, persentase_rusak=persentase_rusak, persentase_tidak_rusak=persentase_tidak_rusak, image_path=image_path)
 
-@app.route('/get_image')
-def get_image():
-    image_path = request.args.get('path')
-    return image_path
+# @app.route('/get_image')
+# def get_image():
+#     image_path = request.args.get('path')
+#     return image_path
 
 # @app.route('/get_image')
 # def get_image():
