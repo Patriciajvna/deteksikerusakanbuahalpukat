@@ -31,13 +31,14 @@ def index():
     persentase_tidak_rusak=None
     prediction = None
     image_path = None
+# Hapus foto sebelumnya jika ada
+if os.path.exists('static/temp.jpg'):
+os.remove('static/temp.jpg')
 
     if request.method == 'POST':
         uploaded_file = request.files['file']
         if uploaded_file.filename != '':
-            # Hapus foto sebelumnya jika ada
-            if os.path.exists('static/temp.jpg'):
-                os.remove('static/temp.jpg')
+
                 
             image_path = 'static/temp.jpg' # Simpan file sementara
             uploaded_file.save(image_path)
