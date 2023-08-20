@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_file, after_this_request
+from flask import Flask, render_template, request, send_file
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 import numpy as np
@@ -45,11 +45,11 @@ def index():
             else:
                 prediction = "Tidak Rusak"
 
-            # Setelah selesai prediksi, hapus gambar
-            @after_this_request
-            def remove_temp(response):
-                os.remove(image_path)
-                return response
+            # # Setelah selesai prediksi, hapus gambar
+            # @after_this_request
+            # def remove_temp(response):
+            #     os.remove(image_path)
+            #     return response
     
             # # Hapus gambar sementara setelah proses prediksi selesai
             # if os.path.exists(image_path):
@@ -59,6 +59,22 @@ def index():
             # # Hapus file sementara setelah selesai prediksi
             # os.remove(image_path)
             # image_path = None  # Set image_path ke None setelah dihapus
+    
+    # Render template setelah prediksi selesai dan hapus gambar
+    if image_path:
+        render_template_args = {
+            'prediction': prediction,
+            'persentase_rusak': persentase_rusak,
+            'persentase_tidak_rusak': persentase_tidak_rusak,
+            'image_path': image_path
+        }
+        
+        @app.after_request
+        def remove_temp(response):
+            os.remove(image_path)
+            return response
+        
+        return render_template('index.html', **render_template_args)
         
     return render_template('index.html', prediction=prediction, persentase_rusak=persentase_rusak, persentase_tidak_rusak=persentase_tidak_rusak, image_path=image_path)
 
