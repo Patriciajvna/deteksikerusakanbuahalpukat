@@ -24,13 +24,14 @@ def predict_image(image_path, model):
 
     prediction = model.predict(img)
     return prediction
+image_path = None
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     persentase_rusak=None
     persentase_tidak_rusak=None
     prediction = None
-    image_path = None
+    global image_path
     if request.method == 'POST':
         uploaded_file = request.files['file']
         if uploaded_file.filename != '':
