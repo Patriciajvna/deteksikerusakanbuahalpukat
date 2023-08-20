@@ -55,7 +55,7 @@
                 {% endif %}
 
                 {% if image_path %}
-                <img src="{{ image_path }}" style="width: 200px;">
+                <img src="{{ url_for('get_image', path=image_path) }}" alt="Gambar Prediksi" width="200">
                 {% endif %}
                 </div>
         </div>
