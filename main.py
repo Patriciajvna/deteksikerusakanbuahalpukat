@@ -10,11 +10,6 @@ app = Flask(__name__)
 model_path = 'static/trained_model2.h5'
 model = load_model(model_path, compile=False)
 
-# Folder to temporarily store uploaded images
-UPLOAD_FOLDER = 'static'
-if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
-
 # Fungsi untuk memprediksi gambar baru
 def predict_image(image_path, model):
     img = image.load_img(image_path, target_size=(100, 100)) # Ubah ukuran gambar sesuai kebutuhan model
