@@ -30,6 +30,7 @@ def index():
     persentase_rusak=None
     persentase_tidak_rusak=None
     prediction = None
+    image_path = None
     if request.method == 'POST':
         uploaded_file = request.files['file']
         if uploaded_file.filename != '':
@@ -43,17 +44,18 @@ def index():
                 prediction = "Rusak"
             else:
                 prediction = "Tidak Rusak"
-
-            # Menghapus file sementara setelah prediksi
-            os.remove(image_path)
             
-            return render_template('index.html', prediction=prediction, persentase_rusak=persentase_rusak, persentase_tidak_rusak=persentase_tidak_rusak, image_path=image_path)
-    return render_template('index.html', prediction=prediction, persentase_rusak=persentase_rusak, persentase_tidak_rusak=persentase_tidak_rusak)
+    return render_template('index.html', prediction=prediction, persentase_rusak=persentase_rusak, persentase_tidak_rusak=persentase_tidak_rusak, image_path=image_path)
 
-@app.route('/get_image')
-def get_image():
-    image_path = request.args.get('path')
-    return send_file(image_path, mimetype='image/jpeg')
+@app.route('/get_image/<path>')
+def get_image(path):
+    return send_from_directory(UPLOAD_FOLDER, path, mimetype='image/jpeg')
+
+@app.after_request
+def remove_temp_file(response):
+    if image_path:
+        os.remove(image_path)
+    return response
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0",port=5000,debug=True)
