@@ -34,7 +34,7 @@ def index():
     if request.method == 'POST':
         uploaded_file = request.files['file']
         if uploaded_file.filename != '':
-            image_path = os.path.join(UPLOAD_FOLDER, 'temp.jpg') # Simpan file sementara
+            image_path = 'static/temp.jpg # Simpan file sementara
             uploaded_file.save(image_path)
             prediction_result = predict_image(image_path, model)
             rusak_prob = prediction_result[0][0]
@@ -44,9 +44,9 @@ def index():
                 prediction = "Rusak"
             else:
                 prediction = "Tidak Rusak"
-            # Hapus file sementara setelah selesai prediksi
-            os.remove(image_path)
-            image_path = None  # Set image_path ke None setelah dihapus
+            # # Hapus file sementara setelah selesai prediksi
+            # os.remove(image_path)
+            # image_path = None  # Set image_path ke None setelah dihapus
         return render_template('index.html', prediction=prediction, persentase_rusak=persentase_rusak, persentase_tidak_rusak=persentase_tidak_rusak, image_path=image_path)
 
     return render_template('index.html', prediction=prediction, persentase_rusak=persentase_rusak, persentase_tidak_rusak=persentase_tidak_rusak, image_path=image_path)
