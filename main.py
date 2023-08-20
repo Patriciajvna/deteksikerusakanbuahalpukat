@@ -10,6 +10,11 @@ app = Flask(__name__)
 model_path = 'static/trained_model2.h5'
 model = load_model(model_path, compile=False)
 
+# Folder to temporarily store uploaded images
+UPLOAD_FOLDER = 'static/'
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
+
 # Fungsi untuk memprediksi gambar baru
 def predict_image(image_path, model):
     img = image.load_img(image_path, target_size=(100, 100)) # Ubah ukuran gambar sesuai kebutuhan model
@@ -26,10 +31,10 @@ def index():
     persentase_tidak_rusak=None
     prediction = None
     if request.method == 'POST':
-        file = request.files['file']
-        if file.filename != '':
-            image_path = 'static/temp.jpg'
-            file.save(image_path)
+        uploaded_file = request.files['file']
+        if uploaded_file.filename != '':
+            image_path = os.path.join(UPLOAD_FOLDER, 'temp.jpg') # Simpan file sementara
+            uploaded_file.save(image_path)
             prediction_result = predict_image(image_path, model)
             rusak_prob = prediction_result[0][0]
             persentase_rusak = rusak_prob * 100
