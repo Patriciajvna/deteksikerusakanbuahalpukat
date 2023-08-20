@@ -35,6 +35,10 @@ def index():
     if request.method == 'POST':
         uploaded_file = request.files['file']
         if uploaded_file.filename != '':
+            # Hapus foto sebelumnya (jika ada)
+            if image_path and os.path.exists(image_path):
+                os.remove(image_path)
+
             image_path = 'static/temp.jpg' # Simpan file sementara
             uploaded_file.save(image_path)
             prediction_result = predict_image(image_path, model)
@@ -45,10 +49,14 @@ def index():
                 prediction = "Rusak"
             else:
                 prediction = "Tidak Rusak"
-            
+
             # Hapus file temp.jpg setelah selesai diproses
             if os.path.exists(image_path):
                 os.remove(image_path)
+            
+            # # Hapus file temp.jpg setelah selesai diproses
+            # if os.path.exists(image_path):
+            #     os.remove(image_path)
 
             # # Setelah selesai prediksi, hapus gambar
             # @after_this_request
