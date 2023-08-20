@@ -44,18 +44,27 @@ def index():
                 prediction = "Rusak"
             else:
                 prediction = "Tidak Rusak"
+    
+    # Hapus gambar sementara setelah proses prediksi selesai
+    if image_path and os.path.exists(image_path):
+        os.remove(image_path)
+
             # # Hapus file sementara setelah selesai prediksi
             # os.remove(image_path)
             # image_path = None  # Set image_path ke None setelah dihapus
-        return render_template('index.html', prediction=prediction, persentase_rusak=persentase_rusak, persentase_tidak_rusak=persentase_tidak_rusak, image_path=image_path)
-
+        
     return render_template('index.html', prediction=prediction, persentase_rusak=persentase_rusak, persentase_tidak_rusak=persentase_tidak_rusak, image_path=image_path)
 
 @app.route('/get_image')
 def get_image():
     image_path = request.args.get('path')
-    # Lakukan validasi terhadap image_path jika diperlukan
-    return send_file(image_path, mimetype='image/jpeg')
+    return image_path
+
+# @app.route('/get_image')
+# def get_image():
+#     image_path = request.args.get('path')
+#     # Lakukan validasi terhadap image_path jika diperlukan
+#     return send_file(image_path, mimetype='image/jpeg')
 
 
 if __name__ == '__main__':
