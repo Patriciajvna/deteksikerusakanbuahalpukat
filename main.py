@@ -24,8 +24,8 @@ def predict_image(image_path, model):
 
     prediction = model.predict(img)
     return prediction
-image_path = None
 
+image_path = None
 @app.route('/', methods=['GET', 'POST'])
 def index():
     persentase_rusak=None
@@ -48,14 +48,12 @@ def index():
             
     return render_template('index.html', prediction=prediction, persentase_rusak=persentase_rusak, persentase_tidak_rusak=persentase_tidak_rusak, image_path=image_path)
 
-@app.route('/get_image/<path>')
-def get_image(path):
-    image_path = os.path.join(UPLOAD_FOLDER, path)  # Menggunakan path yang benar
-    try:
-        return send_from_directory(UPLOAD_FOLDER, path, mimetype='image/jpeg')
-    finally:
-        if path == 'temp.jpg':
-            os.remove(image_path)  # Hapus hanya jika filename adalah 'temp.jpg'
+@app.route('/get_image')
+def get_image():
+    image_path = request.args.get('path')
+    # Lakukan validasi terhadap image_path jika diperlukan
+    return send_file(image_path, mimetype='image/jpeg')
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0",port=5000,debug=True)
