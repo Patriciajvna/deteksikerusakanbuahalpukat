@@ -31,13 +31,11 @@ def index():
     persentase_tidak_rusak=None
     prediction = None
     image_path = None
-
     if request.method == 'POST':
         uploaded_file = request.files['file']
         if uploaded_file.filename != '':
-            nama_berkas_unik = f"static/{str(uuid.uuid4())}.jpg"  # Generate nama berkas unik
-            uploaded_file.save(nama_berkas_unik)
-            
+            image_path = 'static/temp.jpg' # Simpan file sementara
+            uploaded_file.save(image_path)
             prediction_result = predict_image(image_path, model)
             rusak_prob = prediction_result[0][0]
             persentase_rusak = rusak_prob * 100
@@ -47,6 +45,10 @@ def index():
             else:
                 prediction = "Tidak Rusak"
 
+            # Hapus file .jpg setelah hasil ditampilkan
+            if os.path.exists(image_path):
+                os.remove(image_path)
+    return render_template('index.html', prediction=prediction, persentase_rusak=persentase_rusak, persentase_tidak_rusak=persentase_tidak_rusak, image_path=image_path)
             # # Hapus file temp.jpg setelah selesai diproses
             # if os.path.exists(image_path):
             #     os.remove(image_path)
@@ -69,11 +71,7 @@ def index():
             # # Hapus file sementara setelah selesai prediksi
             # os.remove(image_path)
             # image_path = None  # Set image_path ke None setelah dihapus
-            # Hapus file .jpg setelah hasil ditampilkan
-                if os.path.exists(nama_berkas_unik):
-                    os.remove(nama_berkas_unik)
 
-    return render_template('index.html', prediction=prediction, persentase_rusak=persentase_rusak, persentase_tidak_rusak=persentase_tidak_rusak, image_path=nama_berkas_unik)
 
 # @app.route('/get_image')
 # def get_image():
