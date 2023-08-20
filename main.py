@@ -31,10 +31,10 @@ def index():
     persentase_tidak_rusak=None
     prediction = None
     if request.method == 'POST':
-        uploaded_file = request.files['file']
-        if uploaded_file.filename != '':
-            image_path = os.path.join(UPLOAD_FOLDER, 'temp.jpg') # Simpan file sementara
-            uploaded_file.save(image_path)
+        file = request.files['file']
+        if file.filename != '':
+            image_path = 'static/temp.jpg'
+            file.save(image_path)
             prediction_result = predict_image(image_path, model)
             rusak_prob = prediction_result[0][0]
             persentase_rusak = rusak_prob * 100
