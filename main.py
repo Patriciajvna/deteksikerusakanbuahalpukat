@@ -50,13 +50,12 @@ def index():
 
 @app.route('/get_image/<path>')
 def get_image(path):
-    return send_from_directory(UPLOAD_FOLDER, path, mimetype='image/jpeg')
-
-@app.after_request
-def remove_temp_file(response):
-    if image_path:
-        os.remove(image_path)
-    return response
+    image_path = os.path.join(UPLOAD_FOLDER, path)  # Menggunakan path yang benar
+    try:
+        return send_from_directory(UPLOAD_FOLDER, path, mimetype='image/jpeg')
+    finally:
+        if filename == 'temp.jpg':
+            os.remove(image_path)  # Hapus hanya jika filename adalah 'temp.jpg'
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0",port=5000,debug=True)
