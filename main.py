@@ -67,6 +67,11 @@ def index():
 #     # Lakukan validasi terhadap image_path jika diperlukan
 #     return send_file(image_path, mimetype='image/jpeg')
 
-
+@app.after_request
+def remove_temp_file(response):
+    if image_path and image_path == 'static/temp.jpg':
+        os.remove(image_path)
+    return response
+    
 if __name__ == '__main__':
     app.run(host="0.0.0.0",port=5000,debug=True)
