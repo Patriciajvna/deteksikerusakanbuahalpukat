@@ -46,7 +46,7 @@ def index():
                 prediction = "Tidak Rusak"
     
             # Hapus gambar sementara setelah proses prediksi selesai
-            if image_path and os.path.exists(image_path):
+            if os.path.exists(image_path):
                 os.remove(image_path)
                 image_path = None
 
