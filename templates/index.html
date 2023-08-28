@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Deteksi Kerusakan Buah Alpukat</title>
+    <title>Deteksi Cacat Buah Alpukat</title>
     
     <!-- link untuk CSS Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -36,7 +36,7 @@
                         border-radius: 10px; 
                         margin-right: 20px; 
                         padding:40px">
-                    <h2 style="text-align: center; padding-bottom: 20px;">Deteksi Kerusakan Buah Alpukat</h2>
+                    <h2 style="text-align: center; padding-bottom: 20px;">Deteksi Cacat Buah Alpukat</h2>
                     <form method="POST" action="/" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="fileInput">Pilih Gambar :</label>
@@ -50,8 +50,8 @@
                 <div class="col-md-6">
                
                 {% if prediction %}
-                    <p style="font-size: 20px;">Tingkat Probabilitas Rusak: {{ '%.3f'|format(persentase_rusak) }}%</p>
-                    <p style="font-size: 20px;">Tingkat Probabilitas Tidak Rusak: {{ '%.3f'|format(persentase_tidak_rusak) }}%</p>
+                    <p style="font-size: 20px;">Tingkat Probabilitas Cacat: {{ '%.3f'|format(persentase_rusak) }}%</p>
+                    <p style="font-size: 20px;">Tingkat Probabilitas Tidak Cacat: {{ '%.3f'|format(persentase_tidak_rusak) }}%</p>
                     <p style="font-size: 20px;">Hasil Deteksi : <strong>{{ prediction }}</strong></p>
                 {% endif %}
 
