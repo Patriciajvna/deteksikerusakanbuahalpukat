@@ -41,9 +41,9 @@ def index():
             persentase_rusak = rusak_prob * 100
             persentase_tidak_rusak = 100 - persentase_rusak
             if persentase_rusak > 50:
-                prediction = "Rusak"
+                prediction = "Cacat"
             else:
-                prediction = "Tidak Rusak"
+                prediction = "Tidak Cacat"
 
     return render_template('index.html', prediction=prediction, persentase_rusak=persentase_rusak, persentase_tidak_rusak=persentase_tidak_rusak, image_path=image_path)
             # # Hapus file temp.jpg setelah selesai diproses
